@@ -1,0 +1,21 @@
+<h1>These are all registred events</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Theme</th>
+    <th>Date</th>
+    <th>Location</th>
+    <th>Description</th>
+  </tr>
+ 
+  <% @events.each do |event| %>
+    <tr>
+      <td><%= event.title %></td>
+      <td><%= event.theme %></td>
+      <td><%= event.date %></td>
+      <td><%= event.location %></td>
+      <td><%= event.description %></td>
+    </tr>
+  <% end %>
+</table>
