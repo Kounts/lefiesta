@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+.field_with_errors{color: #C11B17;}
+table, th, td {
+    padding: 5px;
+}
