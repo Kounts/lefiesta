@@ -1,7 +1,6 @@
-<p>
-  <strong>Title:</strong>
+<h1>
   <%= @event.title %>
-</p>
+</h1>
  
 <p>
   <strong>Theme:</strong>
@@ -24,3 +23,45 @@
 </p>
 
 <%= link_to 'Edit', edit_event_path(@event)%>
+
+<h1>Guests</h1>
+
+<table>
+<tr>
+    <th>Name</th>
+    <th>Attending</th>
+    <th>Mandatory</th>
+    <th>Note</th>
+    <th>Action</th>
+  </tr>
+
+<% @event.guests.each do |guest| %>
+<tr>
+      <td><%= guest.name %></td>
+      <td><%= guest.attending %></td>
+      <td><%= guest.mandatory %></td>
+      <td><%= guest.note %></td>
+      <td><%= link_to 'Uninvite', [guest.event,guest],method: :delete, data:{confirm: 'Are you sure ?'} %></td>
+    </tr>
+<% end %>
+
+<tr>
+<%= form_for([@event, @event.guests.build]) do |f| %>
+  <td>
+    <%= f.text_field :name %>
+  </td>
+  <td>
+    <%= f.check_box :attending %>
+  </td>
+  <td>
+    <%= f.check_box :mandatory %>
+  </td>
+  <td>
+    <%= f.text_area :note %>
+  </td>
+  <td>
+    <%= f.submit %>
+  </td>
+<% end %>
+</tr>
+</table>

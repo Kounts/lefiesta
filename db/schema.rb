@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141112212659) do
+ActiveRecord::Schema.define(version: 20141116193929) do
+
+  create_table "contacts", force: true do |t|
+    t.string   "name"
+    t.text     "note"
+    t.string   "web"
+    t.string   "email"
+    t.string   "phone"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contacts", ["event_id"], name: "index_contacts_on_event_id"
 
   create_table "events", force: true do |t|
     t.string   "title"
@@ -22,5 +35,41 @@ ActiveRecord::Schema.define(version: 20141112212659) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "guests", force: true do |t|
+    t.string   "name"
+    t.boolean  "mandatory",  default: false
+    t.boolean  "attending",  default: false
+    t.text     "note"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "guests", ["event_id"], name: "index_guests_on_event_id"
+
+  create_table "shopping_items", force: true do |t|
+    t.string   "name"
+    t.integer  "quantity"
+    t.boolean  "bought",     default: false
+    t.text     "note"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "shopping_items", ["event_id"], name: "index_shopping_items_on_event_id"
+
+  create_table "tasks", force: true do |t|
+    t.string   "name"
+    t.date     "deadline"
+    t.boolean  "done",       default: false
+    t.text     "note"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tasks", ["event_id"], name: "index_tasks_on_event_id"
 
 end
