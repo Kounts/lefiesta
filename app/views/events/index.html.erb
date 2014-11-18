@@ -1,7 +1,7 @@
 <h1>These are all registred events</h1>
 
 <%= link_to '+', new_event_path %>
-<table>
+<table class="table">
   <tr>
     <th>Id</th>
     <th>Title</th>
@@ -12,7 +12,7 @@
   </tr>
  
   <% @events.each do |event| %>
-    <tr>
+    <tr class= <%=  (event.date.future? ? 'active' : ('success' if event.date.today?)) if event.date.present? %>>
       <td><%= event.id %></td>
       <td><%= event.title %></td>
       <td><%= event.theme %></td>

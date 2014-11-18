@@ -2,14 +2,13 @@
 <html>
 <head>
   <title>Lefiesta</title>
-  <link rel="stylesheet" href="//railsgirls.com/assets/bootstrap.css">
-<link rel="stylesheet" href="//railsgirls.com/assets/bootstrap-theme.css">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
+
 <body>
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -33,10 +32,6 @@
   <%= yield %>
 </div>
 
-<footer>
-  <div class="container">
-    By K.
-  </div>
-</footer>
+
 </body>
 </html>
