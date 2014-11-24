@@ -1,12 +1,10 @@
-<h1>
-  <%= @event.title %>
-</h1>
- 
-<p>
+
+  <h1> <%= @event.title %></h1>
+    <p>
   <strong>Theme:</strong>
   <%= @event.theme %>
 </p>
- 
+
 <p>
   <strong>Date:</strong>
   <%= @event.date %>
@@ -22,10 +20,12 @@
   <%= @event.description %>
 </p>
 
+
 <%= link_to 'Edit', edit_event_path(@event)%>
 
-<h1>Guests</h1>
-
+<div class="panel panel-default">
+  <div class="panel-heading">Guests</div>
+<div class="panel-body">
 <table>
 <tr>
     <th>Name</th>
@@ -35,33 +35,128 @@
     <th>Action</th>
   </tr>
 
-<% @event.guests.each do |guest| %>
+<% @event.guests.each do |t| %>
 <tr>
-      <td><%= guest.name %></td>
-      <td><%= guest.attending %></td>
-      <td><%= guest.mandatory %></td>
-      <td><%= guest.note %></td>
-      <td><%= link_to 'Uninvite', [guest.event,guest],method: :delete, data:{confirm: 'Are you sure ?'} %></td>
+      <td><%= t.name %></td>
+      <td><%= t.attending %></td>
+      <td><%= t.mandatory %></td>
+      <td><%= t.note %></td>
+      <td><%= link_to 'Uninvite', [t.event,t],method: :delete, data:{confirm: 'Are you sure ?'} %></td>
     </tr>
 <% end %>
 
 <tr>
 <%= form_for([@event, @event.guests.build]) do |f| %>
-  <td>
-    <%= f.text_field :name %>
-  </td>
-  <td>
-    <%= f.check_box :attending %>
-  </td>
-  <td>
-    <%= f.check_box :mandatory %>
-  </td>
-  <td>
-    <%= f.text_area :note %>
-  </td>
-  <td>
-    <%= f.submit %>
-  </td>
+  <td>    <%= f.text_field :name %>  </td>
+  <td>    <%= f.check_box :attending %>  </td>
+  <td>    <%= f.check_box :mandatory %>  </td>
+  <td>    <%= f.text_area :note %>  </td>
+  <td>    <%= f.submit %>  </td>
 <% end %>
 </tr>
 </table>
+</div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Tasks</div>
+<div class="panel-body">
+<table>
+<tr>
+    <th>Name</th>
+    <th>Note</th>
+    <th>Deadline</th>
+    <th>Done</th>
+  </tr>
+
+<% @event.tasks.each do |t| %>
+<tr>
+      <td><%= t.name %></td>
+      <td><%= t.note %></td>
+      <td><%= t.deadline %></td>
+      <td><%= t.done %></td>
+      <td><%= link_to 'Delete', [t.event,t],method: :delete, data:{confirm: 'Are you sure ?'} %></td>
+    </tr>
+<% end %>
+
+<tr>
+<%= form_for([@event, @event.tasks.build]) do |f| %>
+  <td>    <%= f.text_field :name %>  </td>
+  <td>    <%= f.text_area :note %>  </td>
+  <td>    <%= f.datetime_field :deadline %>  </td>
+  <td>    <%= f.check_box :done %>  </td>
+  <td>    <%= f.submit %>  </td>
+<% end %>
+</tr>
+</table>
+</div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Contacts</div>
+<div class="panel-body">
+<table>
+<tr>
+    <th>Name</th>
+    <th>Web</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Note</th>
+  </tr>
+
+<% @event.contacts.each do |t| %>
+<tr>
+      <td><%= t.name %></td>
+      <td><%= t.web %></td>
+      <td><%= t.email %></td>
+      <td><%= t.phone %></td>
+      <td><%= t.note %></td>
+      <td><%= link_to 'Delete', [t.event,t],method: :delete, data:{confirm: 'Are you sure ?'} %></td>
+    </tr>
+<% end %>
+
+<tr>
+<%= form_for([@event, @event.contacts.build]) do |f| %>
+  <td>    <%= f.text_field :name %>  </td>
+  <td>    <%= f.text_field :web %>  </td>
+  <td>    <%= f.text_field :email %>  </td>
+  <td>    <%= f.telephone_field :phone %>  </td>
+  <td>    <%= f.text_area :note %>  </td>
+  <td>    <%= f.submit %>  </td>
+<% end %>
+</tr>
+</table>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Shopping items</div>
+<div class="panel-body">
+<table>
+<tr>
+    <th>Name</th>
+    <th>Quantity</th>
+    <th>Bought</th>
+    <th>Note</th>
+  </tr>
+
+<% @event.shopping_items.each do |t| %>
+<tr>
+      <td><%= t.name %></td>
+      <td><%= t.quantity %></td>
+      <td><%= t.bought %></td>
+      <td><%= t.note %></td>
+      <td><%= link_to 'Delete', [t.event,t],method: :delete, data:{confirm: 'Are you sure ?'} %></td>
+    </tr>
+<% end %>
+
+<tr>
+<%= form_for([@event, @event.shopping_items.build]) do |f| %>
+  <td>    <%= f.text_field :name %>  </td>
+  <td>    <%= f.number_field :quantity %>  </td>
+  <td>    <%= f.check_box :bought %>  </td>
+  <td>    <%= f.text_area :note %>  </td>
+  <td>    <%= f.submit %>  </td>
+<% end %>
+</tr>
+</table>
+</div>
