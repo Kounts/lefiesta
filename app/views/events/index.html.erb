@@ -1,6 +1,23 @@
 <h1>These are all registred events</h1>
 
-<%= link_to '+', new_event_path %>
+<%= link_to '+', new_event_path, {:class => "btn btn-success"} %>
+
+<div class="row">
+<%= div_for(@events, class: "panel panel-success col-xs-offset-3") do |event|%>
+   <%= div_for(event, class: "panel-heading") do %>
+      <h3><%= event.title %></h3>
+   <% end %>
+   <%= div_for(event, class: "panel-body") do %>
+   <ul>
+    <li><%= event.theme %></li>
+      <li><%= event.date %></li>
+      <li><%= event.location %></li>
+     <li> <%= event.description %></li>
+    </ul>
+   <% end %>
+<% end %>
+</div>
+
 <table class="table">
   <tr>
     <th>Id</th>
