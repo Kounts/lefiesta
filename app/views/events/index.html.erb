@@ -1,44 +1,31 @@
-<h1>These are all registred events</h1>
+<h1>Events <%= link_to new_event_path, {:class => "btn btn-success"} do%><p class="glyphicon glyphicon-plus"></p><%end%></h1>
 
-<%= link_to '+', new_event_path, {:class => "btn btn-success"} %>
-
-<div class="row">
-<%= div_for(@events, class: "panel panel-success col-xs-offset-3") do |event|%>
-   <%= div_for(event, class: "panel-heading") do %>
-      <h3><%= event.title %></h3>
-   <% end %>
-   <%= div_for(event, class: "panel-body") do %>
-   <ul>
-    <li><%= event.theme %></li>
-      <li><%= event.date %></li>
-      <li><%= event.location %></li>
-     <li> <%= event.description %></li>
-    </ul>
-   <% end %>
-<% end %>
-</div>
-
-<table class="table">
-  <tr>
-    <th>Id</th>
-    <th>Title</th>
-    <th>Theme</th>
-    <th>Date</th>
-    <th>Location</th>
-    <th>Description</th>
-  </tr>
- 
+<%= content_tag :div do %>  
   <% @events.each do |event| %>
-    <tr class= <%=  (event.date.future? ? 'active' : ('success' if event.date.today?)) if event.date.present? %>>
-      <td><%= event.id %></td>
-      <td><%= event.title %></td>
-      <td><%= event.theme %></td>
-      <td><%= event.date %></td>
-      <td><%= event.location %></td>
-      <td><%= event.description %></td>
-      <td><%= link_to 'See', event_path(event) %></td>
-      <td><%= link_to 'Edit', edit_event_path(event) %></td>
-      <td><%= link_to 'Delete', event_path(event),method: :delete, data:{confirm: 'Are you sure you want to delete this event ?'} %></td>
-    </tr>
-  <% end %>
-</table>
+    <%= content_tag :div, class: "col-lg-4" do %>  
+      <%= content_tag :div, class: "panel panel-success" do %>
+        <%= content_tag :div, class: "panel-heading" do %>
+            <%= event.title%>                
+            <%= content_tag :div, class: "pull-right" do %>
+              <i class="glyphicon glyphicon-user"></i> <%= event.guests.count %> 
+            <% end %>
+        <% end %>
+        <%= div_for(event, class: "panel-body") do %>
+
+    <%= content_tag :div, class: "col-xs-10" do %> 
+             <%= content_tag :div, class: "row" do %><i class="glyphicon glyphicon-star text-primary"></i> <%= event.theme %> <%end%>
+           <%= content_tag :div, class: "row" do %><i class="glyphicon glyphicon-calendar text-primary"></i> <%= event.date %><%end%>
+            <%= content_tag :div, class: "row" do %><i class="glyphicon glyphicon-map-marker text-primary"></i> <%= event.location %><%end%>
+            <%= content_tag :div, class: "row" do %><i class="glyphicon glyphicon-search text-primary"></i> <%= event.description %><%end%>
+
+         <% end %>
+    <%= content_tag :div, class: "col-xs-1" do %> 
+         <%= link_to event_path(event), {:class => "btn btn-default"} do%><i class="glyphicon glyphicon-align-justify"></i><%end%>
+         <%= link_to edit_event_path(event), {:class => "btn btn-default"} do%><i class="glyphicon glyphicon-pencil"></i><%end%>
+         <%= link_to event_path(event), {:class => "btn btn-default", :method => :delete} do%><i class="glyphicon glyphicon-trash"></i><%end%>
+         <% end %>
+         <% end %>
+      <%end%>
+    <%end%>
+  <%end%>
+<%end%>
