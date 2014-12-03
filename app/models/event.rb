@@ -3,5 +3,6 @@ class Event < ActiveRecord::Base
 	has_many :contacts, dependent: :destroy
 	has_many :shopping_items, dependent: :destroy
 	has_many :tasks, dependent: :destroy
+  	has_one :user
 	validates :title, presence:true
 end

@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
 def new
 	@event = Event.new
+	@users = User.all;
 end
 
 def index
@@ -9,6 +10,7 @@ def index
 
 def create
 	@event = Event.new(event_params)
+	@users = User.all;
 
 	if @event.save
 	redirect_to @event
