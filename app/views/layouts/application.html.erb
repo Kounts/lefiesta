@@ -8,6 +8,7 @@
 </head>
 
 <body>
+  <% if user_signed_in? %>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -44,6 +45,7 @@
   </div>
 </nav>
 </br></br></br>
+<%end %>
 
 <% if notice %>
   <p class="alert alert-success"><%= notice %></p>

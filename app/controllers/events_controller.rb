@@ -9,8 +9,10 @@ def new
 end
 
 def index
-	@events = Event.all;
-	end
+	@events = Event.order(date: :asc).all;
+	@past_events = Event.where("date < ?", Time.zone.now.beginning_of_day);	
+	@future_events = Event.where("date >= ?",Time.zone.now.beginning_of_day);
+end
 
 def create
 	@event = Event.new(event_params)

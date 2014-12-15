@@ -1,31 +1,33 @@
-<p class="blah">Events <%= link_to new_event_path, {:class => "btn btn-success"} do%><p class="glyphicon glyphicon-plus"></p><%end%></p>
+<div class="col-md-3">
+  <p class="custom-medium-title">Events</p>
 
-<%= content_tag :div do %>  
-  <% @events.each do |event| %>
-    <%= content_tag :div, class: "col-lg-4" do %>  
-      <%= content_tag :div, class: "panel panel-success" do %>
-        <%= content_tag :div, class: "panel-heading" do %>
-            <%= event.title%>                
-            <%= content_tag :div, class: "pull-right" do %>
-              <i class="glyphicon glyphicon-user"></i> <%= event.guests.count %> 
-            <% end %>
-        <% end %>
-        <%= div_for(event, class: "panel-body") do %>
+  All created events are listed on the right. Feel free to </br></br>
+  <i class="glyphicon glyphicon-align-justify"></i>  Show more details </br>
+  <i class="glyphicon glyphicon-pencil"></i>  Edit </br>
+  <i class="glyphicon glyphicon-trash"></i>  Delete </br></br>
+  <%= link_to new_event_path, {:class => "btn btn-success"} do%><p class="glyphicon glyphicon-plus"> Create a new event</p><%end%>
+</div>
 
-    <%= content_tag :div, class: "col-xs-10" do %> 
-             <%= content_tag :div, class: "row" do %><i class="glyphicon glyphicon-star text-primary"></i> <%= event.theme %> <%end%>
-           <%= content_tag :div, class: "row" do %><i class="glyphicon glyphicon-calendar text-primary"></i> <%= event.date %><%end%>
-            <%= content_tag :div, class: "row" do %><i class="glyphicon glyphicon-map-marker text-primary"></i> <%= event.location %><%end%>
-            <%= content_tag :div, class: "row" do %><i class="glyphicon glyphicon-search text-primary"></i> <%= event.description %><%end%>
-
-         <% end %>
-    <%= content_tag :div, class: "col-xs-1" do %> 
-         <%= link_to event_path(event), {:class => "btn btn-default"} do%><i class="glyphicon glyphicon-align-justify"></i><%end%>
-         <%= link_to edit_event_path(event), {:class => "btn btn-default"} do%><i class="glyphicon glyphicon-pencil"></i><%end%>
-         <%= link_to event_path(event), {:class => "btn btn-default", :method => :delete} do%><i class="glyphicon glyphicon-trash"></i><%end%>
-         <% end %>
-         <% end %>
-      <%end%>
+<div class="col-md-8 col-md-offset-1">
+</br>
+  <p class="custom-small-title">Upcoming events</p>
+  <div id="columns">
+    <% @future_events.each do |event| %>
+      <div class="col-md-12">  
+        <div class="panel panel-success">
+          <%= render partial: 'event_panel' , :locals => {:event => event}%>
+        </div>
+      </div>
     <%end%>
+  </div>
+
+  <p class="custom-small-title">Past events</p>
+  <div id="columns">
+  <% @past_events.each do |event| %>
+    <div class="col-md-12">  
+      <div class="panel panel-default">
+        <%= render partial: 'event_panel' , :locals => {:event => event}%>
+      </div>
+    </div>
   <%end%>
-<%end%>
+</div>
