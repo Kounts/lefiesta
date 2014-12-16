@@ -8,26 +8,40 @@
   <%= link_to new_event_path, {:class => "btn btn-success"} do%><p class="glyphicon glyphicon-plus"> Create a new event</p><%end%>
 </div>
 
+
+<a name="upcoming"></a> 
 <div class="col-md-8 col-md-offset-1">
 </br>
   <p class="custom-small-title">Upcoming events</p>
-  <div id="columns">
-    <% @future_events.each do |event| %>
-      <div class="col-md-12">  
-        <div class="panel panel-success">
-          <%= render partial: 'event_panel' , :locals => {:event => event}%>
+  <% if @future_events.empty? %>
+    No future events.
+  <%else%>
+    <div id="columns">
+      <% @future_events.each do |event| %>
+        <div class="col-md-12">  
+          <div class="panel panel-success">
+            <%= render partial: 'event_panel' , :locals => {:event => event}%>
+          </div>
         </div>
-      </div>
-    <%end%>
-  </div>
-
-  <p class="custom-small-title">Past events</p>
-  <div id="columns">
-  <% @past_events.each do |event| %>
-    <div class="col-md-12">  
-      <div class="panel panel-default">
-        <%= render partial: 'event_panel' , :locals => {:event => event}%>
-      </div>
+      <%end%>
     </div>
   <%end%>
-</div>
+
+
+  <a name="past"></a>
+  <p class="custom-small-title">Past events</p>
+  <% if @past_events.empty? %>
+    <div class="well well-sm">
+      No past events.
+    </div>    
+  <%else%>
+    <div id="columns">
+      <% @past_events.each do |event| %>
+        <div class="col-md-12">  
+          <div class="panel panel-default">
+            <%= render partial: 'event_panel' , :locals => {:event => event}%>
+          </div>
+        </div>
+      <%end%>
+    </div>
+  <%end%>

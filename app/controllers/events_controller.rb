@@ -10,8 +10,8 @@ end
 
 def index
 	@events = Event.order(date: :asc).all;
-	@past_events = Event.where("date < ?", Time.zone.now.beginning_of_day);	
-	@future_events = Event.where("date >= ?",Time.zone.now.beginning_of_day);
+	@past_events = Event.where("date < ?", Date.today);	
+	@future_events = Event.where("date >= ?",Date.today);
 end
 
 def create
@@ -50,6 +50,6 @@ redirect_to events_path
 
 private
 def event_params
-	params.require(:event).permit(:title,:theme,:date,:location,:description)
+	params.require(:event).permit(:title,:theme,:date,:location,:description,:users_id)
 end
 end
