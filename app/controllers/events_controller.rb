@@ -25,8 +25,12 @@ else
 end
 	end
 
-	def show 
-		@event = Event.find(params[:id])
+def show 
+	@event = Event.find(params[:id]);
+	@guests = @event.guests.order(name: :asc);
+	@attending_guest = Guest.where("event_id = ?",@event.id).where("attending = ?", true);
+	@done_task = Task.where("event_id = ?",@event.id).where("done=?", true);
+	@manager = User.find(@event.users_id);
 end
 
 def edit

@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141216215030) do
+ActiveRecord::Schema.define(version: 20141217200629) do
+
+  create_table "Guests", force: true do |t|
+    t.string   "name"
+    t.boolean  "mandatory",  default: false
+    t.boolean  "attending"
+    t.text     "note"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "Guests", ["event_id"], name: "index_guests_on_event_id"
 
   create_table "Users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -55,18 +67,6 @@ ActiveRecord::Schema.define(version: 20141216215030) do
     t.datetime "updated_at"
     t.integer  "users_id"
   end
-
-  create_table "guests", force: true do |t|
-    t.string   "name"
-    t.boolean  "mandatory",  default: false
-    t.boolean  "attending",  default: false
-    t.text     "note"
-    t.integer  "event_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "guests", ["event_id"], name: "index_guests_on_event_id"
 
   create_table "shopping_items", force: true do |t|
     t.string   "name"

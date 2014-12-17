@@ -4,7 +4,7 @@
   All created events are listed on the right. Feel free to </br></br>
   <i class="glyphicon glyphicon-align-justify"></i>  Show more details </br>
   <i class="glyphicon glyphicon-pencil"></i>  Edit </br>
-  <i class="glyphicon glyphicon-trash"></i>  Delete </br></br>
+  <i class="glyphicon glyphicon-remove"></i>  Delete </br></br>
   <%= link_to new_event_path, {:class => "btn btn-success"} do%><p class="glyphicon glyphicon-plus"> Create a new event</p><%end%>
 </div>
 
@@ -14,15 +14,15 @@
 </br>
   <p class="custom-small-title">Upcoming events</p>
   <% if @future_events.empty? %>
-    No future events.
+    <div class="well well-sm">
+      No future events.
+    </div>
   <%else%>
     <div id="columns">
       <% @future_events.each do |event| %>
-        <div class="col-md-12">  
           <div class="panel panel-success">
             <%= render partial: 'event_panel' , :locals => {:event => event}%>
           </div>
-        </div>
       <%end%>
     </div>
   <%end%>
@@ -37,11 +37,10 @@
   <%else%>
     <div id="columns">
       <% @past_events.each do |event| %>
-        <div class="col-md-12">  
           <div class="panel panel-default">
             <%= render partial: 'event_panel' , :locals => {:event => event}%>
           </div>
-        </div>
       <%end%>
     </div>
   <%end%>
+</div>
