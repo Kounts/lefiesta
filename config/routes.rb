@@ -11,4 +11,9 @@ resources :events do
 	resources :guests, :tasks, :contacts, :shopping_items
 end
 
+resources :guests do
+  member do
+    patch 'set_attending'
+  end
+end
 end

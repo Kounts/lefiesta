@@ -32,8 +32,8 @@
   <% end %> </br>
 
 <div class="col-md-12">
-<%= link_to edit_event_path(@event), {:class => "btn btn-sm btn-success"} do%><p class="glyphicon glyphicon-pencil"></p> Edit <%end%>
-<%= link_to event_path(@event), {:class => "btn btn-sm btn-success", :method => :delete} do%><p class="glyphicon glyphicon-remove"> </p> Delete <%end%>
+<%= link_to edit_event_path(@event), {class: "btn btn-success"} do%><p class="glyphicon glyphicon-pencil"></p> Edit <%end%>
+<%= link_to event_path(@event), {class: "btn btn-success", method: :destroy} do%><p class="glyphicon glyphicon-remove"> </p> Delete <%end%>
 </div>
 </div>
 
@@ -42,31 +42,33 @@
 <div class="col-md-8 col-md-offset-1">
 </br>
   <p class="custom-small-title">Guests</p>
-  <% if @guests.empty? %>
-    No guest.
-  <%else%>
-   <div class="col-md-12">
-      <% @guests.each do |guest| %>  
-        <div class="col-md-1">
-          <span class=<%= guest.attending ? "text-success" : "text-default"%>><i class="glyphicon glyphicon-user"></i></span>
-        </div>
-        <div class="col-md-1">
-          <% if guest.mandatory %>
-            <span class=<%= guest.attending ? "text-default" : "text-danger"%>><i class="glyphicon glyphicon-exclamation-sign"></i></span>
-          <% end %>
-        </div>
-        <div class="col-md-2">
-          <%= guest.name %>
-        </div>
-        <div class="col-md-7">
-          <%= guest.note %>
-        </div>
-        <div class="col-md-1">
-          <%= link_to event_guest_path(@event.id,guest.id), {:method => :delete} do%><i class="glyphicon glyphicon-remove"></i><%end%>
-        </div>
+    <div class="well well-sm col-md-12">
+      <% if @guests.empty? %>
+        No guest.
+      <%else%>
+          <% @event.guests.each do |t| %>
+              <div class="col-md-3"><%= t.name %></div>
+
+
+              <div class="col-md-1"><span class=<%= t.attending ? "text-success" : "text-default"%>><i class="glyphicon glyphicon-user"></i></span></div>
+
+
+              <div class="col-md-1"><% if t.mandatory %>
+                <span class=<%= t.attending ? "text-default" : "text-danger"%>><i class="glyphicon glyphicon-exclamation-sign"></i></span>
+              <% end %></div>
+              <div class="col-md-5"><p class="text-warning"><em><%= t.note %></em></p></div>
+              <div class="col-md-2"><%= link_to event_guest_path(@event.id,t.id), {class: "btn btn-xs btn-success", method: :destroy} do%><p class="glyphicon glyphicon-remove"> </p> Delete <%end%></div>
+              <div class="col-md-2"><%= link_to set_attending_guest_path(id:t.id, event_id: @event.id), {class: "btn btn-xs btn-success", method: :patch} do%><p class="glyphicon glyphicon-remove"> </p> Attending <%end%></div>
+             <% end %>    
+            <%= form_for [@event, @event.guests.build], html: {class: "form-horizontal"} do |f| %>
+              <div class="col-md-3"> <%= f.text_field :name , class: "form-control input-sm", placeholder: "Name" %>  </div>
+              <div class="col-md-1">    <%= f.check_box :attending , class: "form-control input-sm" %>  </div>
+              <div class="col-md-1">    <%= f.check_box :mandatory, class: "form-control input-sm"  %>  </div>
+              <div class="col-md-5">    <%= f.text_field :note, class: "form-control input-sm" , placeholder: "Notes" %>  </div>
+              <div class="col-md-2">    <%= f.submit  class: "form-control input-sm"%>  </div>
+            <% end %>
       <%end%>
     </div>
-  <%end%>
 
 
   <a name="tasks"></a>
@@ -87,40 +89,11 @@
 </div>
 
 
-<div class="panel panel-default">
+<div class="panel panel-default col-md-12">
   <div class="panel-heading">Guests</div>
 <div class="panel-body">
 <table>
 <tr>
-    <th>Name</th>
-    <th>Attending</th>
-    <th>Mandatory</th>
-    <th>Note</th>
-    <th>Action</th>
-  </tr>
-
-<% @event.guests.each do |t| %>
-<tr>
-      <td><%= t.name %></td>
-      <td><%= t.attending %></td>
-      <td><%= t.mandatory %></td>
-      <td><%= t.note %></td>
-      <td><%= link_to 'Uninvite', [t.event,t],method: :delete, data:{confirm: 'Are you sure ?'} %></td>
-    </tr>
-<% end %>
-
-<tr>
-<%= form_for([@event, @event.guests.build]) do |f| %>
-  <td>    <%= f.text_field :name %>  </td>
-  <td>    <%= f.check_box :attending %>  </td>
-  <td>    <%= f.check_box :mandatory %>  </td>
-  <td>    <%= f.text_area :note %>  </td>
-  <td>    <%= f.submit %>  </td>
-<% end %>
-</tr>
-</table>
-</div>
-</div>
 
 <div class="panel panel-default">
   <div class="panel-heading">Tasks</div>
@@ -135,21 +108,21 @@
 
 <% @event.tasks.each do |t| %>
 <tr>
-      <td><%= t.name %></td>
-      <td><%= t.note %></td>
-      <td><%= t.deadline %></td>
-      <td><%= t.done %></td>
-      <td><%= link_to 'Delete', [t.event,t],method: :delete, data:{confirm: 'Are you sure ?'} %></td>
+      <div class="col-md-1"><%= t.name %></div>
+      <div class="col-md-1"><%= t.note %></div>
+      <div class="col-md-1"><%= t.deadline %></div>
+      <div class="col-md-1"><%= t.done %></div>
+      <div class="col-md-1"><%= link_to 'Delete', [t.event,t],method: :delete, data:{confirm: 'Are you sure ?'} %></div>
     </tr>
 <% end %>
 
 <tr>
 <%= form_for([@event, @event.tasks.build]) do |f| %>
-  <td>    <%= f.text_field :name %>  </td>
-  <td>    <%= f.text_area :note %>  </td>
-  <td>    <%= f.datetime_field :deadline %>  </td>
-  <td>    <%= f.check_box :done %>  </td>
-  <td>    <%= f.submit %>  </td>
+  <div class="col-md-1">    <%= f.text_field :name %>  </div>
+  <div class="col-md-1">    <%= f.text_area :note %>  </div>
+  <div class="col-md-1">    <%= f.datetime_field :deadline %>  </div>
+  <div class="col-md-1">    <%= f.check_box :done %>  </div>
+  <div class="col-md-1">    <%= f.submit %>  </div>
 <% end %>
 </tr>
 </table>
