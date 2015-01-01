@@ -19,18 +19,21 @@ def create
 	@users = User.all;
 
 	if @event.save
-	redirect_to @event
-else
-	render 'new'
-end
+		redirect_to @event
+	else
+		render 'new'
 	end
+end
 
 def show 
 	@event = Event.find(params[:id])
-	@guests = @event.guests.order(name: :asc)
+	@guests = @event.guests.order("lower(name) asc")
+	@tasks = @event.tasks.order("done, deadline")
 	@attending_guest = Guest.where("event_id = ?",@event.id).where("attending = ?", true)
 	@done_task = Task.where("event_id = ?",@event.id).where("done=?", true)
-	@manager = User.find(@event.users_id)
+	@manager = User.find(@event.users_id)	
+	@is_past = @event.date < Date.today
+	@is_manager = @manager == current_user
 end
 
 def edit

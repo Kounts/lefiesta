@@ -16,4 +16,11 @@ resources :guests do
     patch 'set_attending'
   end
 end
+
+resources :tasks do
+  member do
+    patch 'set_done'
+  end
+end
+
 end

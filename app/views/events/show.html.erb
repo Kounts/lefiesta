@@ -1,5 +1,5 @@
+<p class="custom-medium-title"><%= @event.title %></p>
 <div class="col-md-3">
-  <p class="custom-medium-title"><%= @event.title %></p>
 
   <% if @event.theme.present? %>
     <div class="col-md-1" ><span class="text-warning"><i class="glyphicon glyphicon-star-empty"></i></span></div>
@@ -17,7 +17,13 @@
   <% end %>
 
   <div class="col-md-1" ><span class="text-warning"><i class="glyphicon glyphicon-copyright-mark"></i></span></div>
-  <div class="col-md-10"><%= @manager.username %></div>
+  <div class="col-md-10">
+    <%if @is_manager %>
+      You
+    <% else %>
+      <%= @manager.username %>
+    <% end %>
+  </div>
 
   <div class="col-md-1" ><span class="text-warning"><i class="glyphicon glyphicon-user"></i></span></div>
   <div class="col-md-10"><%= @attending_guest.count %>/<%= @event.guests.count %></div>  
@@ -31,100 +37,23 @@
     </div>
   <% end %> </br>
 
-<div class="col-md-12">
-<%= link_to edit_event_path(@event), {class: "btn btn-success"} do%><p class="glyphicon glyphicon-pencil"></p> Edit <%end%>
-<%= link_to event_path(@event), {class: "btn btn-success", method: :destroy} do%><p class="glyphicon glyphicon-remove"> </p> Delete <%end%>
-</div>
-</div>
-
-
-<a name="guests"></a> 
-<div class="col-md-8 col-md-offset-1">
-</br>
-  <p class="custom-small-title">Guests</p>
-    <div class="well well-sm col-md-12">
-      <% if @guests.empty? %>
-        No guest.
-      <%else%>
-          <% @event.guests.each do |t| %>
-              <div class="col-md-3"><%= t.name %></div>
-
-
-              <div class="col-md-1"><span class=<%= t.attending ? "text-success" : "text-default"%>><i class="glyphicon glyphicon-user"></i></span></div>
-
-
-              <div class="col-md-1"><% if t.mandatory %>
-                <span class=<%= t.attending ? "text-default" : "text-danger"%>><i class="glyphicon glyphicon-exclamation-sign"></i></span>
-              <% end %></div>
-              <div class="col-md-5"><p class="text-warning"><em><%= t.note %></em></p></div>
-              <div class="col-md-2"><%= link_to event_guest_path(@event.id,t.id), {class: "btn btn-xs btn-success", method: :destroy} do%><p class="glyphicon glyphicon-remove"> </p> Delete <%end%></div>
-              <div class="col-md-2"><%= link_to set_attending_guest_path(id:t.id, event_id: @event.id), {class: "btn btn-xs btn-success", method: :patch} do%><p class="glyphicon glyphicon-remove"> </p> Attending <%end%></div>
-             <% end %>    
-            <%= form_for [@event, @event.guests.build], html: {class: "form-horizontal"} do |f| %>
-              <div class="col-md-3"> <%= f.text_field :name , class: "form-control input-sm", placeholder: "Name" %>  </div>
-              <div class="col-md-1">    <%= f.check_box :attending , class: "form-control input-sm" %>  </div>
-              <div class="col-md-1">    <%= f.check_box :mandatory, class: "form-control input-sm"  %>  </div>
-              <div class="col-md-5">    <%= f.text_field :note, class: "form-control input-sm" , placeholder: "Notes" %>  </div>
-              <div class="col-md-2">    <%= f.submit  class: "form-control input-sm"%>  </div>
-            <% end %>
+  <%if @is_manager %>
+    <%= link_to edit_event_path(@event), {class: "btn btn-success btn-sm col-md-5"} do%>
+        <p class="glyphicon glyphicon-pencil"></p> Edit 
       <%end%>
-    </div>
-
-
-  <a name="tasks"></a>
-  <p class="custom-small-title">Tasks</p>
-  <% if @event.tasks.empty? %>
-    <div class="well well-sm">
-      No task.
-    </div>    
-  <%else%>
-    <div id="columns">
-      <% @event.tasks.each do |task| %>
-        <div class="col-md-12">  
-
-        </div>
-      <%end%>
-    </div>
+    <%= link_to event_path(@event), {class: "btn btn-success btn-sm col-md-5 col-md-offset-1", method: :destroy} do%>
+      <p class="glyphicon glyphicon-remove"> </p> Delete 
+    <%end%>
   <%end%>
 </div>
 
+<a name="guests"></a> 
+<div class="col-md-8 col-md-offset-1">
+  <p class="custom-small-title">Guests</p>
+  
+  <%= render partial: 'guest_list' , :locals => {event: @event, is_manager: @is_manager, guests: @guests}%>
 
-<div class="panel panel-default col-md-12">
-  <div class="panel-heading">Guests</div>
-<div class="panel-body">
-<table>
-<tr>
-
-<div class="panel panel-default">
-  <div class="panel-heading">Tasks</div>
-<div class="panel-body">
-<table>
-<tr>
-    <th>Name</th>
-    <th>Note</th>
-    <th>Deadline</th>
-    <th>Done</th>
-  </tr>
-
-<% @event.tasks.each do |t| %>
-<tr>
-      <div class="col-md-1"><%= t.name %></div>
-      <div class="col-md-1"><%= t.note %></div>
-      <div class="col-md-1"><%= t.deadline %></div>
-      <div class="col-md-1"><%= t.done %></div>
-      <div class="col-md-1"><%= link_to 'Delete', [t.event,t],method: :delete, data:{confirm: 'Are you sure ?'} %></div>
-    </tr>
-<% end %>
-
-<tr>
-<%= form_for([@event, @event.tasks.build]) do |f| %>
-  <div class="col-md-1">    <%= f.text_field :name %>  </div>
-  <div class="col-md-1">    <%= f.text_area :note %>  </div>
-  <div class="col-md-1">    <%= f.datetime_field :deadline %>  </div>
-  <div class="col-md-1">    <%= f.check_box :done %>  </div>
-  <div class="col-md-1">    <%= f.submit %>  </div>
-<% end %>
-</tr>
-</table>
-</div>
+    <a name="tasks"></a>
+  <p class="custom-small-title">Tasks</p>
+  <%= render partial: 'task_list' , :locals => {event: @event, is_manager: @is_manager, tasks: @tasks}%>
 </div>
