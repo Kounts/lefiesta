@@ -47,13 +47,26 @@
   <%end%>
 </div>
 
-<a name="guests"></a> 
 <div class="col-md-8 col-md-offset-1">
-  <p class="custom-small-title">Guests</p>
+  <a name="guests"></a> 
   
-  <%= render partial: 'guest_list' , :locals => {event: @event, is_manager: @is_manager, guests: @guests}%>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+        <p class="custom-small-title">Guests</p>  
+      </a>
+    </div>
+    <div id="collapseOne">
+      <div class="panel-body">
+        <%= render partial: 'guest_list' , :locals => {event: @event, is_manager: @is_manager, guests: @guests}%>
+      </div>
+    </div>
+  </div>  
+</div>
 
-    <a name="tasks"></a>
+  <a name="tasks"></a>
   <p class="custom-small-title">Tasks</p>
   <%= render partial: 'task_list' , :locals => {event: @event, is_manager: @is_manager, tasks: @tasks}%>
 </div>
+
