@@ -8,7 +8,11 @@
 
   <% if @event.date.present? %>
     <div class="col-md-1" ><span class="text-warning"><i class="glyphicon glyphicon-time"></i></span></div>
-    <div class="col-md-10"><%= @event.date %></div>
+    <div class="col-md-10">
+      <%= t@event.date.strftime('%d')%>
+      <span class="text-warning"><%= @event.date.strftime('%m')%> </span>       
+      <%= @event.date.strftime('%Y')%>
+    </div>
   <% end %>
 
   <% if @event.location.present? %>
@@ -26,10 +30,10 @@
   </div>
 
   <div class="col-md-1" ><span class="text-warning"><i class="glyphicon glyphicon-user"></i></span></div>
-  <div class="col-md-10"><%= @attending_guest.count %>/<%= @event.guests.count %></div>  
+  <div class="col-md-10"><%= @attending_guest.count %><span class="text-warning">/</span><%= @event.guests.count %></div>  
 
   <div class="col-md-1" ><span class="text-warning"><i class="glyphicon glyphicon-list-alt"></i></span></div>
-  <div class="col-md-10"><%= @done_task.count %>/<%= @event.tasks.count %></div>  
+  <div class="col-md-10"><%= @done_task.count %><span class="text-warning">/</span><%= @event.tasks.count %></div>  
   
   <% if @event.description.present? %>
     <div class="col-md-10 col-md-offset-1">
@@ -47,26 +51,24 @@
   <%end%>
 </div>
 
-<div class="col-md-8 col-md-offset-1">
-  <a name="guests"></a> 
-  
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
-      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-        <p class="custom-small-title">Guests</p>  
-      </a>
-    </div>
-    <div id="collapseOne">
-      <div class="panel-body">
-        <%= render partial: 'guest_list' , :locals => {event: @event, is_manager: @is_manager, guests: @guests}%>
-      </div>
-    </div>
-  </div>  
-</div>
+<div class="col-md-9">
 
-  <a name="tasks"></a>
-  <p class="custom-small-title">Tasks</p>
-  <%= render partial: 'task_list' , :locals => {event: @event, is_manager: @is_manager, tasks: @tasks}%>
-</div>
+  <div class="col-md-1">
+    <p class="custom-small-title"><i class="glyphicon glyphicon-list-alt"></i></p> 
+  </div>
+  <div class="col-md-11">
+    <a name="tasks"></a>
+    <p class="custom-small-title">Tasks</p>  
+    <%= render partial: 'task_list' , :locals => {event: @event, is_manager: @is_manager, tasks: @tasks}%>
+  </div>
 
+  <div class="col-md-1">
+    <p class="custom-small-title"><i class="glyphicon glyphicon-user"></i></p> 
+  </div>
+  <div class="col-md-11">
+    <a name="guests"></a> 
+    <p class="custom-small-title">Guests</p>  
+    <%= render partial: 'guest_list' , :locals => {event: @event, is_manager: @is_manager, guests: @guests}%>
+  </div>
+
+</div>

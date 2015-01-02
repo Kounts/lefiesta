@@ -17,3 +17,5 @@
 table, th, td {
     padding: 5px;
 }
+
+*= require bootstrap-datepicker

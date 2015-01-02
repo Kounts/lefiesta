@@ -41,3 +41,5 @@ gem 'devise'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# to add datepicker
+gem 'bootstrap-datepicker-rails'
