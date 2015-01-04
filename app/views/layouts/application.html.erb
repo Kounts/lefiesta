@@ -47,7 +47,7 @@
 </br></br></br></br>
 <%end %>
 
-<% if notice %>
+<% if notice && !notice.blank?%>
   <p class="alert alert-success"><%= notice %></p>
 <% end %>
 <% if alert %>

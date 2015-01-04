@@ -5,4 +5,7 @@ class Event < ActiveRecord::Base
 	has_many :tasks, dependent: :destroy
   	has_one :user
 	validates :title, presence:true
+	validates :users_id,presence: true	
+	validates :date,presence: true
+
 end
