@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217200629) do
+ActiveRecord::Schema.define(version: 20150104155659) do
 
   create_table "Guests", force: true do |t|
     t.string   "name"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20141217200629) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "users_id"
+    t.string   "pinterest"
   end
 
   create_table "shopping_items", force: true do |t|
