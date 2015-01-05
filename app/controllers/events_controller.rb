@@ -30,6 +30,8 @@ class EventsController < ApplicationController
 		end
 		rescue OpenURI::HTTPError => ex
 			return nil
+		rescue SocketError => se 
+			return nil
 		end
 
 		return response
@@ -37,6 +39,7 @@ class EventsController < ApplicationController
 
 	def create
 		@event = Event.new(event_params)
+		@event.users_id = current_user.id
 		@users = User.all;
 		create_event = true;
 

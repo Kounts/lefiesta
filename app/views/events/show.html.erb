@@ -58,13 +58,19 @@
   <div class="col-md-11">
     <a name="tasks"></a>
     <p class="custom-small-title">Tasks</p>  
-    <button class="btn btn-default col-md-12" type="button" data-toggle="collapse" data-target="#task_list_div" aria-expanded="true" aria-controls="task_list_div">      
-      <div class="col-md-1"><i class="glyphicon glyphicon-chevron-down"></i></div>      
-      <div class="col-md-1 col-md-offset-10"><i class="glyphicon glyphicon-chevron-down"></i></div>
-    </button>
-    <div class="collapse in" id="task_list_div">
+
+    <% if @tasks.empty? %>
       <%= render partial: 'task_list' , :locals => {event: @event, is_manager: @is_manager, tasks: @tasks}%>
-    </div>   
+    <%else%>
+      <button class="btn btn-default col-md-12" type="button" data-toggle="collapse" data-target="#task_list_div" aria-expanded="true" aria-controls="task_list_div">      
+        <div class="col-md-1"><i class="glyphicon glyphicon-chevron-down"></i></div>      
+        <div class="col-md-1 col-md-offset-10"><i class="glyphicon glyphicon-chevron-down"></i></div>
+      </button>
+      <div class="collapse in" id="task_list_div">
+        <%= render partial: 'task_list' , :locals => {event: @event, is_manager: @is_manager, tasks: @tasks}%>
+      </div> 
+    <%end%>  
+
   </div>
 
   <div class="col-md-1">
@@ -73,13 +79,18 @@
   <div class="col-md-11">
     <a name="guests"></a> 
     <p class="custom-small-title">Guests</p>  
+    <%if @guests.empty? %>
+      <%= render partial: 'guest_list' , :locals => {event: @event, is_manager: @is_manager, guests: @guests}%>
+    <%else%>
+
     <button class="btn btn-default col-md-12" type="button" data-toggle="collapse" data-target="#guest_list_div" aria-expanded="true" aria-controls="guest_list_div">      
       <div class="col-md-1"><i class="glyphicon glyphicon-chevron-down"></i></div>      
       <div class="col-md-1 col-md-offset-10"><i class="glyphicon glyphicon-chevron-down"></i></div>
     </button>
     <div class="collapse in" id="guest_list_div">
       <%= render partial: 'guest_list' , :locals => {event: @event, is_manager: @is_manager, guests: @guests}%>
-    </div>       
+    </div>  
+    <%end%>     
   </div>
 
   <div class="col-md-1">
