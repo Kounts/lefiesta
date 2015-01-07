@@ -39,9 +39,11 @@ class EventsController < ApplicationController
 
 	def create
 		@event = Event.new(event_params)
-		@event.users_id = current_user.id
 		@users = User.all;
 		create_event = true;
+
+		@event.users_id = current_user.id
+		event_params[:user_ids] << current_user.id
 
 		if event_params[:pinterest].present? 
 	 		if !get_pins(event_params[:pinterest])
@@ -71,9 +73,10 @@ class EventsController < ApplicationController
 		@tasks = @event.tasks.order("done, deadline")
 		@attending_guest = Guest.where("event_id = ?",@event.id).where("attending = ?", true)
 		@done_task = Task.where("event_id = ?",@event.id).where("done=?", true)
-		@manager = User.find(@event.users_id)	
+		@managers = @event.users		
+		@creator = User.find(@event.users_id)
+		@is_manager = @managers.include?(current_user)
 		@is_past = @event.date < Date.today
-		@is_manager = @manager == current_user
 	end
 
 	def edit
@@ -106,6 +109,6 @@ class EventsController < ApplicationController
 
 	private
 	def event_params
-		params.require(:event).permit(:title,:theme,:date,:location,:description,:users_id,:pinterest)
+		params.require(:event).permit(:title,:theme,:date,:location,:description,:users_id,:pinterest,:user_ids =>[])
 	end
 end

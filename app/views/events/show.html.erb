@@ -1,4 +1,6 @@
+
 <div class="col-md-3">
+
 <p class="custom-medium-title"><%= @event.title %></p>
   <% if @event.theme.present? %>
     <div class="col-md-1" ><span class="text-warning"><i class="glyphicon glyphicon-star-empty"></i></span></div>
@@ -24,7 +26,7 @@
     <%if @is_manager %>
       You
     <% else %>
-      <%= @manager.username %>
+      <%= @creator.username %>
     <% end %>
   </div>
 
@@ -62,9 +64,8 @@
     <% if @tasks.empty? %>
       <%= render partial: 'task_list' , :locals => {event: @event, is_manager: @is_manager, tasks: @tasks}%>
     <%else%>
-      <button class="btn btn-default col-md-12" type="button" data-toggle="collapse" data-target="#task_list_div" aria-expanded="true" aria-controls="task_list_div">      
-        <div class="col-md-1"><i class="glyphicon glyphicon-chevron-down"></i></div>      
-        <div class="col-md-1 col-md-offset-10"><i class="glyphicon glyphicon-chevron-down"></i></div>
+      <button class="btn btn-default btn-xs col-md-12" type="button" data-toggle="collapse" data-target="#task_list_div" aria-expanded="true" aria-controls="task_list_div">      
+        <div class="col-md-1 col-md-offset-11"><i class="glyphicon glyphicon-chevron-down"></i></div>
       </button>
       <div class="collapse in" id="task_list_div">
         <%= render partial: 'task_list' , :locals => {event: @event, is_manager: @is_manager, tasks: @tasks}%>
@@ -83,9 +84,8 @@
       <%= render partial: 'guest_list' , :locals => {event: @event, is_manager: @is_manager, guests: @guests}%>
     <%else%>
 
-    <button class="btn btn-default col-md-12" type="button" data-toggle="collapse" data-target="#guest_list_div" aria-expanded="true" aria-controls="guest_list_div">      
-      <div class="col-md-1"><i class="glyphicon glyphicon-chevron-down"></i></div>      
-      <div class="col-md-1 col-md-offset-10"><i class="glyphicon glyphicon-chevron-down"></i></div>
+    <button class="btn btn-default btn-xs col-md-12" type="button" data-toggle="collapse" data-target="#guest_list_div" aria-expanded="true" aria-controls="guest_list_div">      
+      <div class="col-md-1 col-md-offset-11"><i class="glyphicon glyphicon-chevron-down"></i></div>
     </button>
     <div class="collapse in" id="guest_list_div">
       <%= render partial: 'guest_list' , :locals => {event: @event, is_manager: @is_manager, guests: @guests}%>
