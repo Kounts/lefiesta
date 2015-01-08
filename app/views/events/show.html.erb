@@ -1,4 +1,3 @@
-
 <div class="col-md-3">
 
 <p class="custom-medium-title"><%= @event.title %></p>
@@ -62,13 +61,13 @@
     <p class="custom-small-title">Tasks</p>  
 
     <% if @tasks.empty? %>
-      <%= render partial: 'task_list' , :locals => {event: @event, is_manager: @is_manager, tasks: @tasks}%>
+      <%= render partial: 'task_list'%>
     <%else%>
       <button class="btn btn-default btn-xs col-md-12" type="button" data-toggle="collapse" data-target="#task_list_div" aria-expanded="true" aria-controls="task_list_div">      
         <div class="col-md-1 col-md-offset-11"><i class="glyphicon glyphicon-chevron-down"></i></div>
       </button>
       <div class="collapse in" id="task_list_div">
-        <%= render partial: 'task_list' , :locals => {event: @event, is_manager: @is_manager, tasks: @tasks}%>
+        <%= render partial: 'task_list'%>
       </div> 
     <%end%>  
 
@@ -81,14 +80,14 @@
     <a name="guests"></a> 
     <p class="custom-small-title">Guests</p>  
     <%if @guests.empty? %>
-      <%= render partial: 'guest_list' , :locals => {event: @event, is_manager: @is_manager, guests: @guests}%>
+      <%= render partial: 'guest_list'%>
     <%else%>
 
     <button class="btn btn-default btn-xs col-md-12" type="button" data-toggle="collapse" data-target="#guest_list_div" aria-expanded="true" aria-controls="guest_list_div">      
       <div class="col-md-1 col-md-offset-11"><i class="glyphicon glyphicon-chevron-down"></i></div>
     </button>
     <div class="collapse in" id="guest_list_div">
-      <%= render partial: 'guest_list' , :locals => {event: @event, is_manager: @is_manager, guests: @guests}%>
+      <%= render partial: 'guest_list'%>
     </div>  
     <%end%>     
   </div>
@@ -100,7 +99,7 @@
     <a name="Ideas"></a> 
     <p class="custom-small-title">Ideas</p>  
     <div>
-      <%= render partial: 'idea_list_div' , :locals => {event: @event, pins: @pins}%>
+      <%= render partial: 'idea_list_div'%>
     </div>     
   </div>
 </div>

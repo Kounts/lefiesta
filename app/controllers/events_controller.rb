@@ -74,9 +74,11 @@ class EventsController < ApplicationController
 		@attending_guest = Guest.where("event_id = ?",@event.id).where("attending = ?", true)
 		@done_task = Task.where("event_id = ?",@event.id).where("done=?", true)
 		@managers = @event.users		
-		@creator = User.find(@event.users_id)
+		@creator = @event.user
 		@is_manager = @managers.include?(current_user)
 		@is_past = @event.date < Date.today
+		@task = @event.tasks.build
+		@guest = @event.guests.build
 	end
 
 	def edit

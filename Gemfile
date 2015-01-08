@@ -43,3 +43,6 @@ gem 'devise'
 
 # to add datepicker
 gem 'bootstrap-datepicker-rails'
+
+#heroku
+gem 'heroku'
