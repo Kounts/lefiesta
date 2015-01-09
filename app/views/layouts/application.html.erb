@@ -18,13 +18,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">Home</a>
+     <!-- <a class="navbar-brand" href=<%= user_path(current_user)%>>My board</a>-->
     </div>
     <div class="collapse navbar-collapse navbar-responsive-collapse">
       <ul class="nav navbar-nav">    
-        <% if user_signed_in? %>       
-        <%= nav_link 'Events', events_path %> 
-        <%= nav_link 'New event', new_event_path %> 
+        <% if user_signed_in? %>            
+        <%= nav_link 'My board', user_path(current_user) %>  
+        <%= nav_link 'New event', new_event_path %>         
         <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -47,12 +47,20 @@
 </br></br></br></br>
 <%end %>
 
+<div class="col-md-6 col-md-offset-3">
 <% if notice && !notice.blank?%>
-  <p class="alert alert-success"><%= notice %></p>
+  <p class="alert alert-dismissable alert-warning">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <i class="glyphicon glyphicon-exclamation-sign"></i> <%= notice %>
+  </p>
 <% end %>
 <% if alert %>
-  <p class="alert alert-danger"><%= alert %></p>
+  <p class="alert alert-dismissable alert-danger">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <i class="glyphicon glyphicon-minus-sign"></i> <%= alert %>
+  </p>
 <% end %>
+</div>
 
 <div class="container">
   <%= yield %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150107142716) do
+ActiveRecord::Schema.define(version: 20150109145446) do
 
   create_table "Guests", force: true do |t|
     t.string   "name"
@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 20150107142716) do
     t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "users_id"
+    t.integer  "user_id"
   end
 
   add_index "tasks", ["event_id"], name: "index_tasks_on_event_id"

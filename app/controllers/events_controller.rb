@@ -43,7 +43,7 @@ class EventsController < ApplicationController
 		create_event = true;
 
 		@event.users_id = current_user.id
-		event_params[:user_ids] << current_user.id
+		@event.users << current_user
 
 		if event_params[:pinterest].present? 
 	 		if !get_pins(event_params[:pinterest])
@@ -55,12 +55,18 @@ class EventsController < ApplicationController
 		if !create_event || !@event.save
 			render 'new'
 		else		
-			redirect_to @event
+			redirect_to user_path(current_user)
 		end
 	end
 
 	def show 
 		@event = Event.find(params[:id])
+		@managers = @event.users	
+
+		if !@managers.include?(current_user)
+			redirect_to user_path(current_user), notice: "You have to be a manager to see this event."
+		end;
+
 		response = get_pins(@event.pinterest)
 
 		if @event.pinterest.present? && response
@@ -71,22 +77,33 @@ class EventsController < ApplicationController
 
 		@guests = @event.guests.order("lower(name) asc")
 		@tasks = @event.tasks.order("done, deadline")
+		@shopping_items = @event.shopping_items.order("bought,lower(name)")
 		@attending_guest = Guest.where("event_id = ?",@event.id).where("attending = ?", true)
 		@done_task = Task.where("event_id = ?",@event.id).where("done=?", true)
 		@managers = @event.users		
 		@creator = @event.user
-		@is_manager = @managers.include?(current_user)
+		@is_creator = @creator == current_user
 		@is_past = @event.date < Date.today
 		@task = @event.tasks.build
 		@guest = @event.guests.build
+		@shopping_item = @event.shopping_items.build
 	end
 
 	def edit
+
 		@event = Event.find(params[:id])
-		end
+
+		if !@event.users.include?(current_user)
+			redirect_to user_path(current_user), notice: "You have to be a manager to edit this event."
+		end;
+	end
 
 	def update
 		@event = Event.find(params[:id])
+
+		if !@event.users.include?(current_user)
+			redirect_to user_path(current_user), notice: "You have to be a manager to update this event."
+		end;
 		update_event = true
 
 		if event_params[:pinterest].present? 
@@ -106,7 +123,7 @@ class EventsController < ApplicationController
 	def destroy
 			@event = Event.find(params[:id])
 		@event.destroy
-		redirect_to events_path
+		redirect_to user_path(current_user)
 	end
 
 	private
