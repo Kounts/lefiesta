@@ -23,8 +23,12 @@
         <div class="collapse navbar-collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">    
             <% if user_signed_in? %>            
-            <%= nav_link 'My board', user_path(current_user) %>  
-            <%= nav_link 'New event', new_event_path %>         
+            <li>
+              <%= link_to user_path(current_user) do %> <i class="glyphicon glyphicon-th"></i> Board <%end%>
+            </li>         
+            <li>
+              <%= link_to new_event_path do %> <i class="glyphicon glyphicon-plus"></i> New event <%end%>
+            </li>     
             <% end %>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -46,7 +50,7 @@
     </nav>    
     </br></br></br></br>
   <% else %>
-    </br></br>
+    </br>
   <%end %>
   
 

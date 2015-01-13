@@ -2,14 +2,7 @@
 
 <p class="custom-medium-title"><%= @event.title %></p>
 
-  <%= link_to edit_event_path(@event), {class: "btn btn-success btn-xs col-md-5"} do%>
-      <p class="glyphicon glyphicon-pencil"></p> Edit 
-    <%end%>
-  <%= link_to event_path(@event), {class: "btn btn-success btn-xs col-md-5 col-md-offset-1", method: :destroy} do%>
-    <p class="glyphicon glyphicon-remove"> </p> Delete 
-  <%end%>
-
-  <% if @event.theme.present? %>
+    <% if @event.theme.present? %>
     <div class="col-md-1" ><span class="text-success"><i class="glyphicon glyphicon-star-empty"></i></span></div>
     <div class="col-md-10"><%= @event.theme %></div> 
   <% end %>
@@ -47,76 +40,43 @@
     <div class="col-md-10 col-md-offset-1">
       <p class="text-warning"><em></br><%= @event.description %></em></p>
     </div>
-  <% end %> </br>
+  <% end %> 
+
+  <div class="col-md-12"></br> </div>
+
+  <%= link_to edit_event_path(@event), {class: "btn btn-default btn-md col-md-5"} do%>
+    <p class="glyphicon glyphicon-pencil"></p> Edit 
+  <%end%>
+  <%= link_to event_path(@event), {class: "btn btn-default btn-md col-md-5 col-md-offset-1", method: :destroy} do%>
+    <p class="glyphicon glyphicon-remove"> </p> Delete 
+  <%end%>
 
 </div>
 
-<div class="col-md-9">
+<div class="col-md-8 col-md-offset-1">
 
-  <div class="col-md-1">
-    <p class="custom-small-title"><i class="glyphicon glyphicon-list-alt"></i></p> 
+  <ul class="nav nav-pills nav-justified">
+  <li class="active"><a href="#task_list" data-toggle="tab"><i class="glyphicon glyphicon-list-alt"></i> Tasks <span class="badge"><%= @tasks.count %></span></a></li>
+  <li ><a href="#guest_list" data-toggle="tab"><i class="glyphicon glyphicon-user"></i> Guests <span class="badge"><%= @guests.count %></span></a></li>
+  <li ><a href="#shopping_list" data-toggle="tab"><i class="glyphicon glyphicon-shopping-cart"></i> Shopping items <span class="badge"><%= @shopping_items.count %></span></a></li>
+  <li ><a href="#ideas" data-toggle="tab"><i class="glyphicon glyphicon-pushpin"></i> Ideas <span class="badge"><%= @pins.count %></span></a></li>
+</ul>
+<div id="myTabContent" class="tab-content">
+  <div class="tab-pane fade active in" id="task_list">
+  </br>
+    <%= render partial: 'task_list'%>
   </div>
-  <div class="col-md-11">
-    
-      <p class="custom-small-title">Tasks</p>  
-
-    <% if @tasks.empty? %>
-      <%= render partial: 'task_list'%>
-    <%else%>
-      <button class="btn btn-default btn-xs col-md-12" type="button" data-toggle="collapse" data-target="#task_list_div" aria-expanded="true" aria-controls="task_list_div">      
-        <div class="col-md-1 col-md-offset-11"><i class="glyphicon glyphicon-chevron-down"></i></div>
-      </button>
-      <div class="collapse in" id="task_list_div">
-        <%= render partial: 'task_list'%>
-      </div> 
-    <%end%>  
-
+  <div class="tab-pane fade" id="guest_list">
+  </br>
+    <%= render partial: 'guest_list'%>
   </div>
-
-  <div class="col-md-1">
-    <p class="custom-small-title"><i class="glyphicon glyphicon-user"></i></p> 
-  </div>
-  <div class="col-md-11">
-    <p class="custom-small-title">Guests</p>  
-    <%if @guests.empty? %>
-      <%= render partial: 'guest_list'%>
-    <%else%>
-
-    <button class="btn btn-default btn-xs col-md-12" type="button" data-toggle="collapse" data-target="#guest_list_div" aria-expanded="true" aria-controls="guest_list_div">      
-      <div class="col-md-1 col-md-offset-11"><i class="glyphicon glyphicon-chevron-down"></i></div>
-    </button>
-    <div class="collapse in" id="guest_list_div">
-      <%= render partial: 'guest_list'%>
-    </div>  
-    <%end%>     
-  </div>
-
-    <div class="col-md-1">
-    <p class="custom-small-title"><i class="glyphicon glyphicon-shopping-cart"></i></p> 
-  </div>
-  <div class="col-md-11">
-    <p class="custom-small-title">Shopping list</p>  
-    <%if @shopping_items.empty? %>
+  <div class="tab-pane fade" id="shopping_list">  
+  </br>  
       <%= render partial: 'shopping_item_list'%>
-    <%else%>
-
-    <button class="btn btn-default btn-xs col-md-12" type="button" data-toggle="collapse" data-target="#shopping_item_list_div" aria-expanded="true" aria-controls="shopping_item_list_div">      
-      <div class="col-md-1 col-md-offset-11"><i class="glyphicon glyphicon-chevron-down"></i></div>
-    </button>
-    <div class="collapse in" id="shopping_item_list_div">
-      <%= render partial: 'shopping_item_list'%>
-    </div>  
-    <%end%>     
   </div>
-
-  <div class="col-md-1">
-    <p class="custom-small-title"><i class="glyphicon glyphicon-pushpin"></i></p> 
+  <div class="tab-pane fade" id="ideas">
+  </br>
+    <%= render partial: 'idea_list_div'%>
   </div>
-  <div class="col-md-11">
-    <a name="Ideas"></a> 
-    <p class="custom-small-title">Ideas</p>  
-    <div>
-      <%= render partial: 'idea_list_div'%>
-    </div>     
-  </div>
+</div>
 </div>
