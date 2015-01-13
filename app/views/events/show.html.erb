@@ -1,39 +1,47 @@
 <div class="col-md-3">
 
 <p class="custom-medium-title"><%= @event.title %></p>
+
+  <%= link_to edit_event_path(@event), {class: "btn btn-success btn-xs col-md-5"} do%>
+      <p class="glyphicon glyphicon-pencil"></p> Edit 
+    <%end%>
+  <%= link_to event_path(@event), {class: "btn btn-success btn-xs col-md-5 col-md-offset-1", method: :destroy} do%>
+    <p class="glyphicon glyphicon-remove"> </p> Delete 
+  <%end%>
+
   <% if @event.theme.present? %>
-    <div class="col-md-1" ><span class="text-warning"><i class="glyphicon glyphicon-star-empty"></i></span></div>
+    <div class="col-md-1" ><span class="text-success"><i class="glyphicon glyphicon-star-empty"></i></span></div>
     <div class="col-md-10"><%= @event.theme %></div> 
   <% end %>
 
   <% if @event.date.present? %>
-    <div class="col-md-1" ><span class="text-warning"><i class="glyphicon glyphicon-time"></i></span></div>
+    <div class="col-md-1" ><span class="text-success"><i class="glyphicon glyphicon-time"></i></span></div>
     <div class="col-md-10">
       <%= t@event.date.strftime('%d')%>
-      <span class="text-warning"><%= @event.date.strftime('%m')%> </span>       
+      <span class="text-success"><%= @event.date.strftime('%m')%> </span>       
       <%= @event.date.strftime('%Y')%>
     </div>
   <% end %>
 
   <% if @event.location.present? %>
-    <div class="col-md-1" ><span class="text-warning"><i class="glyphicon glyphicon-map-marker"></i></span></div>
+    <div class="col-md-1" ><span class="text-success"><i class="glyphicon glyphicon-map-marker"></i></span></div>
     <div class="col-md-10"><%= @event.location %></div>
   <% end %>
 
-  <div class="col-md-1" ><span class="text-warning"><i class="glyphicon glyphicon-copyright-mark"></i></span></div>
+  <div class="col-md-1" ><span class="text-success"><i class="glyphicon glyphicon-copyright-mark"></i></span></div>
   <div class="col-md-10">
     <%if @is_creator %>
-      You
+      Me !
     <% else %>
       <%= @creator.username %>
     <% end %>
   </div>
 
-  <div class="col-md-1" ><span class="text-warning"><i class="glyphicon glyphicon-user"></i></span></div>
-  <div class="col-md-10"><%= @attending_guest.count %><span class="text-warning">/</span><%= @event.guests.count %></div>  
+  <div class="col-md-1" ><span class="text-success"><i class="glyphicon glyphicon-list-alt"></i></span></div>
+  <div class="col-md-10"><%= @done_task.count %><span class="text-success">/</span><%= @event.tasks.count %></div>  
 
-  <div class="col-md-1" ><span class="text-warning"><i class="glyphicon glyphicon-list-alt"></i></span></div>
-  <div class="col-md-10"><%= @done_task.count %><span class="text-warning">/</span><%= @event.tasks.count %></div>  
+  <div class="col-md-1" ><span class="text-success"><i class="glyphicon glyphicon-user"></i></span></div>
+  <div class="col-md-10"><%= @attending_guest.count %><span class="text-success">/</span><%= @event.guests.count %></div>  
   
   <% if @event.description.present? %>
     <div class="col-md-10 col-md-offset-1">
@@ -41,12 +49,6 @@
     </div>
   <% end %> </br>
 
-  <%= link_to edit_event_path(@event), {class: "btn btn-success btn-sm col-md-5"} do%>
-      <p class="glyphicon glyphicon-pencil"></p> Edit 
-    <%end%>
-  <%= link_to event_path(@event), {class: "btn btn-success btn-sm col-md-5 col-md-offset-1", method: :destroy} do%>
-    <p class="glyphicon glyphicon-remove"> </p> Delete 
-  <%end%>
 </div>
 
 <div class="col-md-9">
@@ -55,6 +57,7 @@
     <p class="custom-small-title"><i class="glyphicon glyphicon-list-alt"></i></p> 
   </div>
   <div class="col-md-11">
+    
       <p class="custom-small-title">Tasks</p>  
 
     <% if @tasks.empty? %>

@@ -43,7 +43,9 @@ class EventsController < ApplicationController
 		create_event = true;
 
 		@event.users_id = current_user.id
-		@event.users << current_user
+		if !@event.users.include?(current_user)
+			@event.users << current_user
+		end
 
 		if event_params[:pinterest].present? 
 	 		if !get_pins(event_params[:pinterest])
@@ -55,7 +57,7 @@ class EventsController < ApplicationController
 		if !create_event || !@event.save
 			render 'new'
 		else		
-			redirect_to user_path(current_user)
+			redirect_to event_path(@event)
 		end
 	end
 

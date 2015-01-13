@@ -22,4 +22,96 @@ table, th, td {
   background-color: #00bc8c;
 }
 
+@font-face {
+  font-family: '/assets/glyphicons Halflings';
+  src: url('/assets/glyphicons-halflings-regular.eot');
+  src: url('/assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/assets/glyphicons-halflings-regular.woff') format('woff'), url('/assets/glyphicons-halflings-regular.ttf') format('truetype'), url('/assets/glyphicons-halflings-regular.svg#/assets/glyphicons_halflingsregular') format('svg');
+}
+
+@font-face {
+  font-family: '/assets/thecinthiaedito';
+  src: url('/assets/thecinthiaedito-webfont.eot');
+  src: url('/assets/thecinthiaedito-webfont.eot?#iefix') format('embedded-opentype'), url('/assets/thecinthiaedito-webfont.woff') format('woff'), url('/assets/thecinthiaedito-webfont.ttf') format('truetype'), url('/assets/thecinthiaedito-webfont.svg#/assets/thecinthiaedito-webfont') format('svg');
+}
+
+.custom-large-title{
+  font-family: '/assets/thecinthiaedito';
+  font-size: 7.5em;
+}
+
+.custom-medium-title{
+  font-family: '/assets/thecinthiaedito';
+  line-height:0.75em;
+  margin-bottom:0.5em;
+  font-size: 5em;
+}
+
+.custom-small-title{
+  font-family: '/assets/thecinthiaedito';
+  line-height:0.75em;
+  margin-bottom:0.5em;
+  margin-top:0.5em;
+  font-size: 2.5em;
+}
+
+.glyphicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: '/assets/glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.text-dark {
+  color: #222222;
+}
+a.text-dark:hover {
+  color: #ffffff;
+}
+
+
+.form-control_date {
+  height: 43px;
+  padding: 10px 15px;
+  font-size: 15px;
+  line-height: 1.42857143;
+  color: #464545;
+  background-color: #ffffff;
+  background-image: none;
+  border: 1px solid #f1f1f1;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+#columns {
+  -webkit-column-count: 2;
+  -webkit-column-gap: 10px;
+  -webkit-column-fill: auto;
+  -moz-column-count: 2;
+  -moz-column-gap: 10px;
+  -moz-column-fill: auto;
+  column-count: 2;
+  column-gap: 15px;
+  column-fill: auto;
+}
+
+#columns3 {
+  -webkit-column-count: 3;
+  -webkit-column-gap: 10px;
+  -webkit-column-fill: auto;
+  -moz-column-count: 2;
+  -moz-column-gap: 10px;
+  -moz-column-fill: auto;
+  column-count: 2;
+  column-gap: 15px;
+  column-fill: auto;
+
 *= require bootstrap-datepicker
