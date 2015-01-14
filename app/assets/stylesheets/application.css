@@ -11,9 +11,11 @@
  * file per style scope.
  *
  *= require_tree .
- *= require_self
+ *= require_self 
+ *= require bootstrap-datepicker
  */
 .field_with_errors{color: #C11B17;}
+
 table, th, td {
     padding: 5px;
 }
@@ -113,5 +115,4 @@ a.text-dark:hover {
   column-count: 2;
   column-gap: 15px;
   column-fill: auto;
-
-*= require bootstrap-datepicker
+}
