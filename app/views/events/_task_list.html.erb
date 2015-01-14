@@ -1,0 +1,81 @@
+
+<div class="well well-sm-light col-md-12">
+  <div class="col-md-1">
+    <i class="glyphicon glyphicon-ok"></i>
+  </div>
+<strong>
+  <div class="col-md-2">Deadline</div>
+
+  <div class="col-md-2">Task</div>
+
+  <div class="col-md-2">Assignee</div>
+  
+  <div class="col-md-5">Notes</div>
+</strong>
+</br>
+</div>
+
+<% @tasks.each do |t| %>          
+  <div class="well well-sm col-md-12">
+
+    <div class="col-md-1">
+      <% if t.done %>
+        <p class="text-success" title= "This task is done", "data-toggle"= "tooltip", "data-placement" = "bottom">
+          <i class="glyphicon glyphicon-ok"></i>
+        </p>
+      <%end%>
+    </div>
+
+    <div class="col-md-2">
+      <%if t.deadline.present?%>
+        <%if t.deadline < Date.today  && !t.done%> 
+          <span class="text-danger"><%= t.deadline.strftime('%d %m %Y')%> </span>  
+        <%else%>
+        <%= t.deadline.strftime('%d')%>
+        <span class="text-success"><%= t.deadline.strftime('%m')%> </span>       
+        <%= t.deadline.strftime('%Y')%>
+        <%end%>
+      <%end%>
+    </div>
+
+    <div class="col-md-2"><%= t.name %></div>
+
+    <div class="col-md-2"><%= t.user.username if t.user_id %></div>
+
+    <div class="col-md-3"><p class="text-warning"><em><%= t.note %></em></p></div>
+
+    <div class="col-md-2">    
+
+      <% if t.done %>              
+        <%= link_to set_done_task_path(id:t.id, event_id: @event.id), {class: "btn btn-default  btn-sm", method: :patch, title: "This task is not done", "data-toggle"=> "tooltip", "data-placement" => "bottom"} do%><i class="glyphicon glyphicon-minus"></i>
+        <%end%>
+      <%else%>
+        <%= link_to set_done_task_path(id:t.id, event_id: @event.id), {class: "btn btn-default  btn-sm", method: :patch, title: "This task is done", "data-toggle"=> "tooltip", "data-placement" => "bottom"} do%><i class="glyphicon glyphicon-ok"></i>
+        <%end%>
+      <%end%>
+
+      <%= link_to event_task_path(@event.id,t.id), {class: "btn btn-default  btn-sm", method: :delete, title: "Delete task", "data-toggle"=> "tooltip", "data-placement" => "bottom"} do%><i class="glyphicon glyphicon-remove"> </i> 
+      <%end%> 
+    </div>  
+  </div>
+<% end %>  
+
+<div class="col-md-12">
+  <%= form_for [@event, @task], html: {class: "form-horizontal"} do |f| %>
+
+    <div class="col-md-1">
+      <%= f.check_box :done , class: "checkbox" %>
+    </div>
+
+    <div class="col-md-2">
+      <%= f.text_field :deadline, required: true, class: "form-control input-sm", data: {provide: "datepicker", "date-format"=>"dd.mm.yyyy"}, value: Date.today.strftime("%d.%m.%Y")%>
+    </div>
+  
+    <div class="col-md-2"> <%= f.text_field :name, required: true , class: "form-control input-sm", placeholder: "Task" %>  </div>
+    
+    <div class="col-md-2">  <%= f.collection_select :user_id, @managers, :id, :username, {required: true}, {class: "form-control  input-sm"} %>  </div>
+
+    <div class="col-md-3"> <%= f.text_field :note , class: "form-control input-sm", placeholder: "Notes" %>  </div>
+    <div class="col-md-2">    <%= f.submit  class: "btn btn-success btn-sm"%>  </div>
+  <% end %>
+</div>

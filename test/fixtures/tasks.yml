@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  deadline: 2014-11-16
+  done: false
+  note: MyText
+  event_id: 
+
+two:
+  name: MyString
+  deadline: 2014-11-16
+  done: false
+  note: MyText
+  event_id: 

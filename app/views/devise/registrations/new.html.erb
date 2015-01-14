@@ -1,0 +1,61 @@
+<div class="col-md-12">
+</br></br>
+</div>
+<div class="col-md-3">
+  <p class="custom-medium-title">Sign up</p>
+
+Just a few fields to complete and you'll be ready to create and organize whatever dances in your mind. Prepare some balloons.
+
+<div class="col-md-12">
+</br></br>
+</div>
+
+  <%= link_to root_path, {class: "btn btn-default btn-xs col-md-8"} do%>
+      <p class="glyphicon glyphicon-chevron-left"></p> Back 
+  <%end%>
+</div>
+
+<div class="col-md-9">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "form-horizontal" }) do |f| %>
+
+    <% if resource.errors.any? %>
+<%= render partial: 'shared/alert' , locals:  {tab: resource.errors}%>
+<%end%>
+
+    <div class="form-group">
+      <%= f.label :email, :class => "col-md-2 control-label"  %>
+      <div class="col-md-8">
+      <%= f.email_field :email, autofocus: true , :class => "form-control" %>
+    </div>
+    </div>
+
+      <div class="form-group">
+      <%= f.label :username, :class => "col-md-2 control-label"  %>
+      <div class="col-md-8">
+      <%= f.text_field :username , :class => "form-control" %>
+    </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password , :class => "col-md-2 control-label"  %>
+      <div class="col-md-8">
+      <%= f.password_field :password, autocomplete: "off" , :class => "form-control" %>
+    </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password_confirmation , :class => "col-md-2 control-label"  %>
+      <div class="col-md-8">
+      <%= f.password_field :password_confirmation, autocomplete: "off" , :class => "form-control" %>
+    </div>
+    </div>
+
+<div class="form-group">
+  <div class="col-md-8 col-md-offset-2">
+      <%= f.submit "Sign up",:class => "btn btn-success col-md-12"%>
+  </div>
+</div>
+
+  <% end %>
+</div>
+

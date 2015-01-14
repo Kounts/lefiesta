@@ -1,0 +1,62 @@
+<%= form_for @event, html: {class: "form-horizontal"} do |f| %>
+
+<% if @event.errors.any? %>
+<%= render partial: 'shared/alert' , locals:  {tab: @event.errors}%>
+<%end%>
+
+  <div class="form-group">
+    <%= f.label :title, class: "col-md-2 control-label"  %>
+    <div class="col-md-6">
+    <%= f.text_field :title, autofocus: true, class: "form-control"%>
+    </div>
+  </div>
+
+<div class="form-group">
+    <%= f.label :theme, class: "col-md-2 control-label"  %>
+    <div class="col-md-6">
+    <%= f.text_field :theme, class: "form-control" %>
+  </div>
+  </div>
+
+   <div class="form-group">
+    <%= f.label :date , class: "col-md-2 control-label"  %>
+    <div class="col-md-6">
+    <%= f.text_field :date, class: "form-control input-sm", data: {provide: "datepicker", "date-format"=>"dd/mm/yyyy"}, value: @event.date ? @event.date.strftime("%d/%m/%Y") : Date.today.strftime("%d/%m/%Y")%>
+  </div>
+  </div>
+
+   <div class="form-group">
+    <%= f.label :location, class: "col-md-2 control-label"  %>
+    <div class="col-md-6">
+    <%= f.text_field :location, class: "form-control" %>
+  </div>
+  </div>
+
+   <div class="form-group">
+    <%= f.label :users, class: "col-md-2 control-label"  %>
+    <div class="col-md-6">
+  <%= f.collection_select :user_ids, User.all, :id, :username, {}, { multiple: true, class: "form-control"} %>
+  </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, class: "col-md-2 control-label"  %>
+    <div class="col-md-6">
+    <%= f.text_area :description, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :pinterest, class: "col-md-2 control-label"  %>
+    <div class="col-md-6">
+    <%= f.text_field :pinterest, class: "form-control" ,placeholder: "http://www.pinterest.com/{username}/{boardname}/"%>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-md-6 col-md-offset-2">
+      <%= f.submit  class: "btn btn-success"%>
+    </div>
+  </div>
+    
+<% end %>

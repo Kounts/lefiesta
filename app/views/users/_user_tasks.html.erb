@@ -1,0 +1,43 @@
+
+<div class="well well-sm-light col-md-12">
+
+  <div class="col-md-2">Deadline</div>
+
+  <div class="col-md-2">Event</div>
+
+  <div class="col-md-3">Task</div>
+  
+  <div class="col-md-5">Notes</div>
+</div>
+
+<% tasks.each do |t| %>          
+  <div class="well well-sm col-md-12">
+
+    <div class="col-md-2">
+      <%if t.deadline.present? %>
+        <%if t.deadline < Date.today %> 
+          <span class="text-danger"><%= t.deadline.strftime('%d %m %Y')%> </span>  
+        <%else%>
+        <%= t.deadline.strftime('%d')%>
+        <span class="text-success"><%= t.deadline.strftime('%m')%> </span>       
+        <%= t.deadline.strftime('%Y')%>
+        <%end%>
+      <%end%>
+    </div>
+
+    <div class="col-md-2"><%= link_to t.event.title, event_path(t.event) %></div>
+
+    <div class="col-md-3"><%= t.name %></div>
+
+    <div class="col-md-3"><p class="text-warning"><em><%= t.note %></em></p></div>
+
+    <div class="col-md-2">    
+
+      <%= link_to set_done_task_path(id:t.id, event_id: t.event.id), {class: "btn btn-default  btn-sm", method: :patch, title: "This task is done", "data-toggle"=> "tooltip", "data-placement" => "bottom"} do%><i class="glyphicon glyphicon-ok"></i>
+      <%end%>
+
+      <%= link_to event_task_path(t.event.id,t.id), {class: "btn btn-default  btn-sm", method: :delete, title: "Delete task", "data-toggle"=> "tooltip", "data-placement" => "bottom"} do%><i class="glyphicon glyphicon-remove"> </i> 
+      <%end%> 
+    </div>  
+  </div>
+<% end %>  

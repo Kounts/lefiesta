@@ -1,0 +1,21 @@
+<% if @pins.empty? %>
+  <div class="well well-sm col-md-12">
+    <%if !@event.pinterest.blank? %>
+      Connection error : impossible to display idea list.
+    <%else%> 
+      No idea to list,<%= link_to "link a Pinterest board",edit_event_path(@event)%> to this event to see corresponding ideas.
+    <%end%>  
+  </div>
+<%else%>
+ <div id="columns3">
+    <% @pins.each do |pin| %>          
+      <div class="col-md-12">
+        <div class="well well-sm">
+          <a href=<%= pin["link"]%> target="_blank">
+            <img src=<%= pin["images"].values[0]["url"]%> width="100%">
+          </a>
+        </div>
+      </div>
+    <% end %> 
+  </div>    
+<% end %>

@@ -1,0 +1,70 @@
+<div class="well well-sm-light col-md-12">
+
+<strong>
+        <div class="col-md-1">
+          <i class="glyphicon glyphicon-ok"></i>
+        </div>
+
+        <div class="col-md-1">
+          <i class="glyphicon glyphicon-exclamation-sign"></i>
+        </div>
+      
+        <div class="col-md-2">Name</div>
+        
+        <div class="col-md-6">Notes</div>
+
+</strong>
+  </div>  
+
+<% @guests.each do |t| %>          
+  <div class="well well-sm col-md-12">
+
+    <div class="col-md-1">
+      <% if t.attending %>
+        <p class="text-success" title= "This guest is attending", "data-toggle"= "tooltip", "data-placement" = "bottom">
+          <i class="glyphicon glyphicon-ok"></i>
+        </p>
+      <%end%>
+    </div>
+
+    <div class="col-md-1">
+      <% if t.mandatory %>
+        <i class="glyphicon glyphicon-exclamation-sign" title= "This guest is attending", "data-toggle"= "tooltip", "data-placement" = "bottom"></i>
+      <%end%>
+    </div>
+
+    <div class="col-md-2"><%= t.name %></div>
+
+    <div class="col-md-6"><p class="text-warning"><em><%= t.note %></em></p></div>
+    <div class="col-md-2">    
+
+      <% if t.attending %>              
+        <%= link_to set_attending_guest_path(id:t.id, event_id: @event.id), {class: "btn btn-default  btn-sm", method: :patch, title: "This guest is no more attending", "data-toggle"=> "tooltip", "data-placement" => "bottom"} do%><i class="glyphicon glyphicon-minus"></i>
+        <%end%>
+      <%else%>
+        <%= link_to set_attending_guest_path(id:t.id, event_id: @event.id), {class: "btn btn-default  btn-sm", method: :patch, title: "This guest is attending", "data-toggle"=> "tooltip", "data-placement" => "bottom"} do%><i class="glyphicon glyphicon-ok"></i>
+        <%end%>
+      <%end%>
+
+      <%= link_to event_guest_path(@event.id,t.id), {class: "btn btn-default  btn-sm", method: :delete, title: "Delete guest", "data-toggle"=> "tooltip", "data-placement" => "bottom"} do%><i class="glyphicon glyphicon-remove"> </i> 
+      <%end%> 
+      </div>
+  </div>
+<% end %>  
+
+<div class="col-md-12">
+  <%= form_for [@event, @guest], html: {class: "form-horizontal"} do |f| %>
+    <div class="col-md-1">
+      <%= f.check_box :attending , class: "checkbox" %>
+    </div>
+
+    <div class="col-md-1">
+      <%= f.check_box :mandatory , class: "checkbox" %>
+    </div>
+  
+    <div class="col-md-2"> <%= f.text_field :name, required: true, class: "form-control input-sm", placeholder: "Name" %>  </div>
+    
+    <div class="col-md-6">    <%= f.text_field :note, class: "form-control input-sm" , placeholder: "Notes" %>  </div>
+    <div class="col-md-2">    <%= f.submit  class: "btn btn-success btn-sm"%>  </div>
+  <% end %>
+</div>

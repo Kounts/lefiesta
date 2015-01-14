@@ -1,0 +1,58 @@
+<div class="col-md-3">
+  <p class="custom-medium-title">Board</p>
+
+    From this board you access all events you manage as well as tasks you've been assigned to do. 
+</br></br>
+  <%= link_to new_event_path, {:class => "btn btn-success"} do%><p class="glyphicon glyphicon-plus"> Create a new event</p><%end%>
+</div>
+
+<div class="col-md-8 col-md-offset-1">
+<ul class="nav nav-pills nav-justified">
+  <li  class="active"><a href="#upcoming_events" data-toggle="tab"><i class="glyphicon glyphicon-forward"></i> Upcoming events <span class="badge"><%= @future_events.count %></span></a></li>
+  <li ><a href="#past_events" data-toggle="tab"><i class="glyphicon glyphicon-backward"></i> Past events <span class="badge"><%= @past_events.count %></span></a></li>
+  <li><a href="#task_list" data-toggle="tab"><i class="glyphicon glyphicon-list-alt"></i> Tasks <span class="badge"><%= @tasks.count %></span></a></li>
+</ul>
+<div id="myTabContent" class="tab-content ">
+  <div class="tab-pane fade" id="task_list">
+  </br>
+    <% if @tasks.empty? %>
+    <div class="well well-sm">
+      No assigned task.
+    </div>
+  <%else%>
+     <%= render partial: 'user_tasks' , :locals => {:tasks => @tasks}%>
+  <%end%>
+  </div>
+  <div class="tab-pane fade active in" id="upcoming_events">
+  </br>
+   <% if @future_events.empty? %>
+    <div class="well well-sm">
+      No future events.
+    </div>
+  <%else%>
+    <div id="columns">
+      <% @future_events.each do |event| %>
+          <div class="panel panel-success">
+            <%= render partial: 'shared/event_panel' , :locals => {:event => event}%>
+          </div>
+      <%end%>
+    </div>
+  <%end%>
+  </div>
+  <div class="tab-pane fade" id="past_events">  
+  </br>  
+      <% if @past_events.empty? %>
+    <div class="well well-sm">
+      No past events.
+    </div>    
+  <%else%>
+    <div id="columns">
+      <% @past_events.each do |event| %>
+          <div class="panel panel-default">
+            <%= render partial: 'shared/event_panel' , :locals => {:event => event}%>
+          </div>
+      <%end%>
+    </div>
+  <%end%>
+  </div>
+</div>
