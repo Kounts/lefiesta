@@ -46,3 +46,5 @@ gem 'bootstrap-datepicker-rails'
 gem 'heroku'
 
 gem 'pg'
+
+gem 'rails_12factor'
