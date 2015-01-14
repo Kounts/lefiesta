@@ -40,7 +40,15 @@
 
     <div class="col-md-2"><%= t.name %></div>
 
-    <div class="col-md-2"><%= t.user.username if t.user_id %></div>
+    <div class="col-md-2">
+      <% if t.user_id %>
+        <% if t.user == current_user %>
+          <p class="text-success">Me</i> 
+        <%else%>
+          <%= t.user.username if t.user_id %>
+        <%end%>
+      <%end%>
+    </div>
 
     <div class="col-md-3"><p class="text-warning"><em><%= t.note %></em></p></div>
 
@@ -50,11 +58,11 @@
         <%= link_to set_done_task_path(id:t.id, event_id: @event.id), {class: "btn btn-default  btn-sm", method: :patch, title: "This task is not done", "data-toggle"=> "tooltip", "data-placement" => "bottom"} do%><i class="glyphicon glyphicon-minus"></i>
         <%end%>
       <%else%>
-        <%= link_to set_done_task_path(id:t.id, event_id: @event.id), {class: "btn btn-default  btn-sm", method: :patch, title: "This task is done", "data-toggle"=> "tooltip", "data-placement" => "bottom"} do%><i class="glyphicon glyphicon-ok"></i>
+        <%= link_to set_done_task_path(id:t.id, event_id: @event.id), {class: "btn btn-default  btn-sm", method: :patch, title: "This task is done", data: {placement: "bottom",toggle:"tooltip" }} do%><i class="glyphicon glyphicon-ok"></i>
         <%end%>
       <%end%>
 
-      <%= link_to event_task_path(@event.id,t.id), {class: "btn btn-default  btn-sm", method: :delete, title: "Delete task", "data-toggle"=> "tooltip", "data-placement" => "bottom"} do%><i class="glyphicon glyphicon-remove"> </i> 
+      <%= link_to event_task_path(@event.id,t.id), {class: "btn btn-default  btn-sm", method: :delete, title: "Delete task", data: { confirm: "Delete this task ?",placement: "bottom",toggle:"tooltip" }} do%><i class="glyphicon glyphicon-remove"> </i> 
       <%end%> 
     </div>  
   </div>

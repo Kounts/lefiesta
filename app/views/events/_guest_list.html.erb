@@ -46,7 +46,7 @@
         <%end%>
       <%end%>
 
-      <%= link_to event_guest_path(@event.id,t.id), {class: "btn btn-default  btn-sm", method: :delete, title: "Delete guest", "data-toggle"=> "tooltip", "data-placement" => "bottom"} do%><i class="glyphicon glyphicon-remove"> </i> 
+      <%= link_to event_guest_path(@event.id,t.id), {class: "btn btn-default  btn-sm", method: :delete, title: "Delete guest", data: { confirm: "Delete this guest ?",placement: "bottom",toggle:"tooltip" }} do%><i class="glyphicon glyphicon-remove"> </i> 
       <%end%> 
       </div>
   </div>

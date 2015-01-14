@@ -14,6 +14,7 @@ html {
 }
 body {
   margin: 0;
+  word-wrap: break-word;
 }
 article,
 aside,
@@ -230,7 +231,7 @@ th {
   img {
     max-width: 100% !important;
   }
-  p,
+  p ,
   h2,
   h3 {
     orphans: 3;

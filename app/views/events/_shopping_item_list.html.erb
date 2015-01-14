@@ -37,7 +37,7 @@
         <%end%>
       <%end%>
 
-      <%= link_to event_shopping_item_path(@event.id,t.id), {class: "btn btn-default  btn-sm", method: :delete, title: "Delete shopping item", "data-toggle"=> "tooltip", "data-placement" => "bottom"} do%><i class="glyphicon glyphicon-remove"> </i> 
+      <%= link_to event_shopping_item_path(@event.id,t.id), {class: "btn btn-default  btn-sm", method: :delete, title: "Delete shopping item", data: { confirm: "Delete this shopping item ?",placement: "bottom",toggle:"tooltip" }} do%><i class="glyphicon glyphicon-remove"> </i> 
       <%end%> 
     </div>   
   </div>

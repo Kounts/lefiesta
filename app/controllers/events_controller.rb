@@ -115,9 +115,13 @@ class EventsController < ApplicationController
 			end
 		end
 
+
 		if !update_event || !@event.update(event_params)
 			render 'edit'
 		else		
+			if !@event.users.include?(current_user)
+			@event.users << current_user
+			end
 			redirect_to @event
 		end
 	end

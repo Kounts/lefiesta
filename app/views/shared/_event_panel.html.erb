@@ -2,7 +2,7 @@
 
         <div class="panel-heading" >
           <i class="glyphicon glyphicon-chevron-right"></i>
-            <span class="panel-title"><span class='text-dark'><%= event.title%></span></span> 
+           <%= link_to event_path(event) do%> <span class="panel-title"><span class='text-dark'><%= event.title%></span></span> <%end%>
             <% if event.users_id.present? %>
             <% u = User.find(event.users_id)%>
           </br>
@@ -34,7 +34,7 @@
 
         <!--Footer-->
         <div class="btn-group btn-group-justified">
-            <%= link_to event_path(event), {:class => "btn btn-default btn-xs col-md-4"} do%><i class="glyphicon glyphicon-align-justify"></i><%end%>
-            <%= link_to edit_event_path(event), {:class => "btn btn-default btn-xs col-md-4"} do%><i class="glyphicon glyphicon-pencil"></i><%end%>
-            <%= link_to event_path(event), {:class => "btn btn-default btn-xs col-md-4", :method => :delete} do%><i class="glyphicon glyphicon-remove"></i><%end%>
+            <%= link_to event_path(event), {class: "btn btn-default btn-xs col-md-4"} do%><i class="glyphicon glyphicon-align-justify"></i><%end%>
+            <%= link_to edit_event_path(event), {class: "btn btn-default btn-xs col-md-4"} do%><i class="glyphicon glyphicon-pencil"></i><%end%>
+            <%= link_to event_path(event), {class: "btn btn-default btn-xs col-md-4", method: :delete, data:{confirm:"Delete this event ?"}} do%><i class="glyphicon glyphicon-remove"></i><%end%>
         </div>

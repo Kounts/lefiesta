@@ -44,11 +44,12 @@
 
   <div class="col-md-12"></br> </div>
 
-  <%= link_to edit_event_path(@event), {class: "btn btn-default btn-md col-md-5"} do%>
-    <p class="glyphicon glyphicon-pencil"></p> Edit 
+  <%= link_to edit_event_path(@event), {class: "btn btn-default btn-md col-md-12"} do%>
+    <i class="glyphicon glyphicon-pencil"></i> Edit 
   <%end%>
-  <%= link_to event_path(@event), {class: "btn btn-default btn-md col-md-5 col-md-offset-1", method: :destroy} do%>
-    <p class="glyphicon glyphicon-remove"> </p> Delete 
+ <div class="col-md-12"></br> </div>
+  <%= link_to event_path(@event), {class: "btn btn-default btn-md col-md-12", method: :delete, data: {confirm: "Delete this event ?"}} do%>
+    <i class="glyphicon glyphicon-remove"> </i>  Delete 
   <%end%>
 
 </div>
